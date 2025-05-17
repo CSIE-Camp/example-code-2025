@@ -1,0 +1,5 @@
+為了你的方便，請先把你的 token 放到這個 txt 檔案
+要用到的時候比較不會手忙腳亂
+
+discord_token = 
+google_api_key = 
