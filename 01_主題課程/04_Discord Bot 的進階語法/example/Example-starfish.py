@@ -1,10 +1,4 @@
 import discord  # 引入 discord API 的套件
-import json
-
-with open('my.json') as f:
-    d = json.load(f)
-
-token = d['token']
 
 # 啟用所有 intents，讓機器人能夠監聽各種事件
 intents = discord.Intents.all()
@@ -17,8 +11,8 @@ bot.good_reaction_amount = 0
 @bot.event
 async def on_message(message):
     if message.content == "?good":
-      bot.message_wait_for_reaction = await message.channel.send("我需要更多的讚")
-      await bot.message_wait_for_reaction.add_reaction("👍")
+        bot.message_wait_for_reaction = await message.channel.send("我需要更多的讚")
+        await bot.message_wait_for_reaction.add_reaction("👍")
 
 @bot.event
 async def on_reaction_add(reaction, user):
