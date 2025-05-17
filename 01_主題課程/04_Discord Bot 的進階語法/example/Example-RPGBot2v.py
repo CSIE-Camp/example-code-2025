@@ -1,10 +1,5 @@
 import discord
-import json
 
-with open('my.json') as f:
-    d = json.load(f)
-
-token = d['token']
 # 啟用所有 intents，使機器人能夠監聽所有事件（包括成員、訊息、反應等）
 intents = discord.Intents.all()
 # 建立 Discord Client 物件，並啟用 intents

@@ -1,11 +1,4 @@
 import discord
-import json
-import asyncio
-
-with open('my.json') as f:
-    d = json.load(f)
-
-token = d['token']
 
 # 啟用所有 intents，使機器人能夠監聽所有事件（包括成員、訊息、反應等）
 intents = discord.Intents.all()
@@ -22,7 +15,7 @@ async def on_message(message):
         #========= 加 try...except =========#
         try:
             msg = await bot.wait_for('reaction_add', check = check, timeout = 3)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             await message.channel.send(f'哇哈哈哈，explosion！！')
             await message.channel.send(f'你跟眾人都被炸成了灰')
             return
