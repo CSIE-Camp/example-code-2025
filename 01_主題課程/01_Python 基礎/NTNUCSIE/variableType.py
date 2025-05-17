@@ -1,0 +1,5 @@
+print(type(1.4))
+print(type(128))
+print(type(1234))
+print(type(True))
+print(type(1))
