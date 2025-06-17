@@ -3,7 +3,7 @@ import asyncio
 
 from discord.ext import commands
 
-dc_token = 'dc_token' # 請填入你的 Discord Bot Token
+dc_token = "YOUR DCBOT TOKEN" # 請填入你的 Discord Bot Token
 
 intents = discord.Intents.all()
 
@@ -18,6 +18,10 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
     await ctx.send("Hello, world!")
+
+@bot.command()
+async def hi(ctx, arg):
+    await ctx.send("hi, " + arg + "!")
 
 # 接收參數其他參數
 @bot.command()

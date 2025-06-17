@@ -3,7 +3,7 @@ import asyncio
 
 from discord.ext import commands
 
-dc_token = 'dc_token'  # 請填入你的 Discord Bot Token
+dc_token = "YOUR DCBOT TOKEN" # 請填入你的 Discord Bot Token
 
 # intents 為機器人的權限，這裡設定為全開
 intents = discord.Intents.all()
