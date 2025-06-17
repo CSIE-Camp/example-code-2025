@@ -8,9 +8,11 @@ bot = commands.Bot(command_prefix='$',intents=intents) # We need to type '$' bef
 
 @bot.command()
 async def web(ctx):
+# 請填入程式碼，讓discord可以傳送網路中的圖片
 
 @bot.command()
 async def local(ctx):
+# 請填入程式碼，讓discord可以傳送電腦中的圖片
 
 @bot.command()
 async def web_em(ctx):
