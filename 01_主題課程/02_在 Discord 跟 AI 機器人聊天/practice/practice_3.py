@@ -27,7 +27,7 @@ bot = commands.Bot(command_prefix='%', intents=intents)
 async def on_ready():
     print(f"目前登入身份 --> {bot.user}")
 
-# TODO: 建立對應的 event 與 command
+# TODO: 建立對應的 command
 # 要求：
 # 1. 利用 command 與 gemini 進行對話
 # 2. 要使用風格化輸出，請加入自己的創意
