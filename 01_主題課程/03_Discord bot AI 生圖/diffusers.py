@@ -2,7 +2,7 @@ import torch
 from diffusers import StableDiffusionPipeline
 
 # 初始化 Stable Diffusion
-model_id = "ckpt/anything-v4.5"
+model_id = "" #請填上自己找到的 module
 pipe = StableDiffusionPipeline.from_pretrained(
     model_id,
     allow_pickle=False  # Add this line to prevent unsafe serialization
