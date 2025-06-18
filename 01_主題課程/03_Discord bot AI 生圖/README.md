@@ -15,7 +15,7 @@ Note that this program is not complete. I will complete it on class.
 # ai
 ## AI_flask.ipynb
 The purpose of this program is to show how to operate diffuser and let students practice ngrok.<br>
-Note that this program should be run on colab.
+Note that this program should be run on colab.<br>
 colab url : https://colab.research.google.com/drive/1hLhJ-tIfqQ0eZbz3RUaQF9yMcSUXcUKi?usp=sharing
 ## diffusers.py
 colab url : https://colab.research.google.com/drive/1pq4Zp1l1T93bRFZwwdw9k3mI38eyjK6c?usp=sharing
