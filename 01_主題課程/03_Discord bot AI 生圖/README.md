@@ -18,6 +18,7 @@ The purpose of this program is to show how to operate diffuser and let students 
 Note that this program should be run on colab.<br>
 colab url : https://colab.research.google.com/drive/1hLhJ-tIfqQ0eZbz3RUaQF9yMcSUXcUKi?usp=sharing
 ## diffusers.py
+To show how to use text to image model<br>
 colab url : https://colab.research.google.com/drive/1pq4Zp1l1T93bRFZwwdw9k3mI38eyjK6c?usp=sharing
 
 # Image processing
@@ -26,4 +27,5 @@ This example is to demonstrate that how to do io operation. Also to show that ho
 
 # Ngrok
 ## ngrok.ipynb
+To show how to use ngrok
 colab url : https://colab.research.google.com/drive/11wluMhe26gaHzNsqaXb46c-II86m-ngb?usp=sharing
