@@ -1,46 +1,41 @@
-import discord
-import asyncio
-
 import google.generativeai as genai
+import os
 
-from discord.ext import commands
+genai.configure(api_key="YOUR GEMINI API KEY")  # 替換成你的 API Key
 
-# 填入你的 Discord Token 與 gemini 的 API key
-DC_TOKEN = "YOUR DCBOT TOKEN"
-GEMINI_API_KEY = "YOUR GEMINI API KEY"
+model = genai.GenerativeModel("gemini-2.0-flash")
 
-# 啟動 gemini
-genai.configure(api_key=GEMINI_API_KEY)
+def main():
+    print("Gemini 對話機器人已啟動！")
+    print("輸入 'exit' 或 'quit' 即可結束對話。")
+    print("-" * 30)
 
-# 設定模型
-model = genai.GenerativeModel('gemini-2.0-flash')
+    # 初始化對話歷史
+    # 這裡的 history 參數可以用來傳遞之前的對話歷史
+    chat = model.start_chat(history=[])
+
+    while True:
+        # 獲取使用者輸入
+        prompt = input("你: ")
+
+        # 檢查是否要結束對話
+        if prompt.lower() in ["exit", "quit"]:
+            print("-" * 30)
+            print("感謝使用，對話結束！")
+            break
+
+        # 將訊息傳送給 Gemini，Gemini 會自動處裡對話歷史
+        response = chat.send_message(prompt)
+        
+        print("Gemini:", response.text)
+        print("\n") # 確保換行
 
 
-# intents 為機器人的權限，這裡設定為全開
-intents = discord.Intents.all()
+    # (可選) 印出完整的對話歷史
+    print("\n--- 完整對話歷史 ---")
+    for message in chat.history:
+        print(message)
 
-# bot 是機器人的本體，這邊是設定他前綴，這邊設定為 %
-bot = commands.Bot(command_prefix='%', intents=intents)
 
-@bot.event
-# 當機器人完成啟動
-async def on_ready():
-    print(f"目前登入身份 --> {bot.user}")
-
-# 與 gemini 對話
-@bot.command()
-async def gemini(ctx, arg):
-    response = model.generate_content(arg)
-    text = response.text
-
-    if not text:
-        await ctx.send("我無法回答您的問題")
-        return
-
-    await ctx.send(text)
-
-# 啟動機器人
-async def main():
-    await bot.start(DC_TOKEN)
-
-asyncio.run(main())
+if __name__ == "__main__":
+    main()

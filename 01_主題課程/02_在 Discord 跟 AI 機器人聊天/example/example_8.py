@@ -27,20 +27,17 @@ bot = commands.Bot(command_prefix='%', intents=intents)
 async def on_ready():
     print(f"目前登入身份 --> {bot.user}")
 
-# TODO: 建立對應的 command
-# 要求：
-# 1. 利用 command 與 gemini 進行對話
-# 2. 要使用風格化輸出，請加入自己的創意
-# 3. 請加入預設的回答，防止 gemini 無法回答時，機器人回覆「我無法回答您的問題」
-# 4. 請實作記憶功能
-# [Start] 請在以下空間撰寫機器人程式
+# 與 gemini 對話
+@bot.command()
+async def gemini(ctx, arg):
+    response = model.generate_content(arg)
+    text = response.text
 
+    if not text:
+        await ctx.send("我無法回答您的問題")
+        return
 
-
-
-
-
-# [End] 請在以上空間撰寫機器人程式
+    await ctx.send(text)
 
 # 啟動機器人
 async def main():
