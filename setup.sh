@@ -6,3 +6,4 @@ if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
 }
 
 pip3 install -r requirements.txt
+cd ~/Desktop && git clone https://github.com/CSIE-Camp/example-code-2025.git
