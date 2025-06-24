@@ -16,8 +16,8 @@ echo   One-Click Environment Setup Script (Windows)
 echo ==========================================
 echo.
 
-REM 1. Install Python 3.10.11 x64
-echo [1/6] Installing Python 3.10.11 (x64)...
+REM 1. Download & install Python 3.10.11 x64
+echo [1/6] Downloading and installing Python 3.10.11 (x64)...
 set "PYTHON_URL=https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
 set "PYTHON_EXE=%TEMP%\python-3.10.11-amd64.exe"
 powershell -Command "Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile '%PYTHON_EXE%'"
@@ -55,6 +55,11 @@ if errorlevel 1 (
     pause & exit /b 1
 )
 del "%GIT_EXE%"
+
+REM 3b. Add Git to current session PATH
+echo [3b] Adding Git to PATH for this session...
+set "GIT_INSTALL_DIR=%ProgramFiles%\Git\cmd"
+set "PATH=%GIT_INSTALL_DIR%;%PATH%"
 
 REM 4. Clone sample code to Desktop
 echo [4/6] Cloning sample code to Desktop...
