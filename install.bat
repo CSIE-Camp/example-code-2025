@@ -1,92 +1,86 @@
 @echo off
-REM --------------------------------------------------
-REM 一鍵安裝環境腳本 —— 直接雙擊執行
-REM --------------------------------------------------
-
-:: ----------------------------------------------------------------------------
-:: 1. 檢查是否為管理員執行
-:: ----------------------------------------------------------------------------
-net session >nul 2>&1
-if %errorlevel% NEQ 0 (
-  echo ----------------------------------------
-  echo   本腳本需要以「管理員身分」執行！
-  echo   請右鍵此檔案，選擇 「以系統管理員身分執行」。
-  echo ----------------------------------------
-  pause
-  exit /b
+::----------------------------------------------------------
+:: 如果不是以管理員執行，就自動彈出 UAC
+::----------------------------------------------------------
+>%temp%\getadmin.vbs echo Set UAC = CreateObject("Shell.Application") 
+>>%temp%\getadmin.vbs echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %*", "", "runas", 1
+"%temp%\getadmin.vbs"
+del %temp%\getadmin.vbs 2>nul
+if not "%1"=="--elevated" (
+    goto :EOF
 )
 
+::----------------------------------------------------------
+:: 開始安裝流程
+::----------------------------------------------------------
 echo.
-echo ========== 開始安裝流程 ==========
+echo ================================
+echo   一鍵安裝環境腳本 (Windows)
+echo ================================
 echo.
 
-:: ----------------------------------------------------------------------------
-:: 2. 安裝 Python 3.10
-:: ----------------------------------------------------------------------------
-where python >nul 2>&1
-if %errorlevel% NEQ 0 (
-  echo [1/5] 安裝 Python 3.10...
-  winget install --id Python.Python.3.10 -e --silent
-) else (
-  echo [1/5] 已偵測到 Python： 
-  python --version
+:: 1. 安裝 Python 3.10
+echo [1/6] 安裝 Python 3.10...
+winget install --id Python.Python.3.10 -e --silent
+if errorlevel 1 (
+    echo 安裝 Python 失敗，請檢查 winget 或網路連線。
+    pause
+    exit /b 1
 )
 
-echo.
-
-:: ----------------------------------------------------------------------------
-:: 3. 安裝 / 確認 pip
-:: ----------------------------------------------------------------------------
-python -m pip --version >nul 2>&1
-if %errorlevel% NEQ 0 (
-  echo [2/5] 安裝 pip...
-  python -m ensurepip --upgrade
-) else (
-  echo [2/5] 已偵測到 pip：
-  python -m pip --version
-)
-
-echo.
-
-:: ----------------------------------------------------------------------------
-:: 4. 安裝 Git
-:: ----------------------------------------------------------------------------
-where git >nul 2>&1
-if %errorlevel% NEQ 0 (
-  echo [3/5] 安裝 Git...
-  winget install --id Git.Git -e --silent
-) else (
-  echo [3/5] 已偵測到 Git：
-  git --version
-)
-
-echo.
-
-:: ----------------------------------------------------------------------------
-:: 5. Clone 範例程式到桌面
-:: ----------------------------------------------------------------------------
-set "REPO_URL=https://github.com/CSIE-Camp/example-code-2025.git"
-set "DEST=%USERPROFILE%\Desktop\example-code-2025"
-
-if not exist "%DEST%" (
-  echo [4/5] Clone repository 到：%DEST%
-  git clone "%REPO_URL%" "%DEST%"
-) else (
-  echo [4/5] 目的資料夾已存在，跳過 clone。
-)
-
-echo.
-
-:: ----------------------------------------------------------------------------
-:: 6. 安裝 requirements.txt
-:: ----------------------------------------------------------------------------
-echo [5/5] 安裝 Python 套件依賴...
-cd /d "%DEST%"
+:: 2. 升級 pip
+echo [2/6] 升級 pip...
+python -m ensurepip --upgrade
 python -m pip install --upgrade pip
+if errorlevel 1 (
+    echo pip 升級失敗。
+    pause
+    exit /b 1
+)
+
+:: 3. 安裝 Git
+echo [3/6] 安裝 Git...
+winget install --id Git.Git -e --silent
+if errorlevel 1 (
+    echo 安裝 Git 失敗。
+    pause
+    exit /b 1
+)
+
+:: 4. Clone 範例程式碼到桌面
+echo [4/6] Clone 範例程式碼到桌面...
+cd /d "%USERPROFILE%\Desktop"
+if exist example-code-2025 (
+    echo 目錄已存在，跳過 clone。
+) else (
+    git clone https://github.com/CSIE-Camp/example-code-2025.git
+    if errorlevel 1 (
+        echo Clone 失敗，請檢查網路或 repo URL。
+        pause
+        exit /b 1
+    )
+)
+
+:: 5. 安裝 requirements.txt
+echo [5/6] 安裝 Python 相依套件...
+cd example-code-2025
 pip install -r requirements.txt
+if errorlevel 1 (
+    echo requirements 安裝失敗。
+    pause
+    exit /b 1
+)
+
+:: 6. 安裝 Discord 桌面版
+echo [6/6] 安裝 Discord 桌面版...
+winget install --id Discord.Discord -e --silent
+if errorlevel 1 (
+    echo 安裝 Discord 失敗。
+    pause
+    exit /b 1
+)
 
 echo.
-echo =====================================
-echo      全部步驟執行完畢！按任意鍵結束
-echo =====================================
+echo 全部任務完成！請按任意鍵結束。
 pause
+exit /b 0
