@@ -8,7 +8,6 @@ if %errorlevel% neq 0 (
     powershell -Command "Start-Process -FilePath '%~f0' -Verb RunAs -ArgumentList '--elevated'"
     exit /b
 )
-REM Remove --elevated if present
 if "%1"=="--elevated" shift
 
 echo.
@@ -17,8 +16,8 @@ echo   One-Click Environment Setup Script (Windows)
 echo ==========================================
 echo.
 
-REM 1. Download & install Python 3.10.11 x64
-echo [1/6] Downloading and installing Python 3.10.11 (x64)...
+REM 1. Install Python 3.10.11 x64
+echo [1/6] Installing Python 3.10.11 (x64)...
 set "PYTHON_URL=https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
 set "PYTHON_EXE=%TEMP%\python-3.10.11-amd64.exe"
 powershell -Command "Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile '%PYTHON_EXE%'"
@@ -31,7 +30,7 @@ del "%PYTHON_EXE%"
 
 REM 2. Ensure pip is available
 echo [2/6] Ensuring pip is available...
-py -m ensurepip --default-pip 2>nul
+python -m ensurepip --default-pip 2>nul
 if errorlevel 1 (
     echo ensurepip failed. Bootstrapping get-pip.py...
     set "GETPIP=%TEMP%\get-pip.py"
@@ -39,7 +38,7 @@ if errorlevel 1 (
     python "%GETPIP%"
     del "%GETPIP%"
 )
-py -m pip install --upgrade pip
+python -m pip install --upgrade pip
 if errorlevel 1 (
     echo ERROR: Failed to upgrade pip.
     pause & exit /b 1
@@ -47,10 +46,10 @@ if errorlevel 1 (
 
 REM 3. Download & install Git for Windows 2.50.0 x64
 echo [3/6] Downloading and installing Git for Windows...
-set "GIT_URL=https://sourceforge.net/projects/git-for-windows.mirror/files/v2.50.0.windows.1/Git-2.50.0-64-bit.exe/download"
+set "GIT_URL=https://github.com/git-for-windows/git/releases/download/v2.50.0.windows.1/Git-2.50.0-64-bit.exe"
 set "GIT_EXE=%TEMP%\Git-2.50.0-64-bit.exe"
 powershell -Command "Invoke-WebRequest -Uri '%GIT_URL%' -OutFile '%GIT_EXE%'"
-"%GIT_EXE%" /VERYSILENT /NORESTART
+"%GIT_EXE%" /VERYSILENT /NORESTART /SP-
 if errorlevel 1 (
     echo ERROR: Failed to install Git.
     pause & exit /b 1
@@ -84,7 +83,7 @@ echo [6/6] Downloading and installing Discord Desktop...
 set "DISCORD_URL=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x64"
 set "DISCORD_EXE=%TEMP%\DiscordSetup.exe"
 powershell -Command "Invoke-WebRequest -Uri '%DISCORD_URL%' -OutFile '%DISCORD_EXE%'"
-"%DISCORD_EXE%" /s
+"%DISCORD_EXE%" /S
 if errorlevel 1 (
     echo ERROR: Failed to install Discord.
     pause & exit /b 1
