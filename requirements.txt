@@ -7,3 +7,5 @@ google-cloud
 Pillow
 wordcloud
 matplotlib 
+sympy
+ddddocr
