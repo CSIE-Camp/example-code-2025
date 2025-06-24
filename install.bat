@@ -30,15 +30,15 @@ del "%PYTHON_EXE%"
 
 REM 2. Ensure pip is available
 echo [2/6] Ensuring pip is available...
-python -m ensurepip --default-pip 2>nul
+py -m ensurepip --default-pip 2>nul
 if errorlevel 1 (
     echo ensurepip failed. Bootstrapping get-pip.py...
     set "GETPIP=%TEMP%\get-pip.py"
     powershell -Command "Invoke-WebRequest -Uri 'https://bootstrap.pypa.io/get-pip.py' -OutFile '%GETPIP%'"
-    python "%GETPIP%"
+    py "%GETPIP%"
     del "%GETPIP%"
 )
-python -m pip install --upgrade pip
+py -m pip install --upgrade pip
 if errorlevel 1 (
     echo ERROR: Failed to upgrade pip.
     pause & exit /b 1
