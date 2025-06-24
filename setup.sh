@@ -1,0 +1,8 @@
+if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+    Write-Host "Python 未安裝，開始安裝..."
+    winget install --id Python.Python.3 -e --silent
+} else {
+    Write-Host "已偵測到 Python：" (python --version)
+}
+
+pip3 install -r requirements.txt
