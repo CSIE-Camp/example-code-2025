@@ -10,17 +10,17 @@ bot = commands.Bot(command_prefix='!',intents=intents)
 
 NGROK_URL = ""  # 請替換成您的 ngrok URL
 
+async def get_photo(prompt):
+    return requests.post(
+                f"{NGROK_URL}/",
+                json={"prompt": prompt}
+            )
+
 @bot.command()
 async def generate(ctx, *, prompt):
 
     # 發送等待訊息
     await ctx.send("正在生成圖片,請稍候...")
-    
-    # 呼叫 API
-    response = requests.post(
-        f"{NGROK_URL}/generate",
-        json={"prompt": prompt}
-    )
 
     data = response.json()
     if data['status'] == 'success':
