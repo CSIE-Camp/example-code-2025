@@ -1,23 +1,49 @@
+import discord
+import asyncio
+
 import google.generativeai as genai
 
-genai.configure(api_key="YOUR GEMINI API KEY")  # 替換成你的 API Key
+from discord.ext import commands
 
-# 選擇模型
+# 填入你的 Discord Token 與 gemini 的 API key
+DC_TOKEN = "YOUR DCBOT TOKEN"
+GEMINI_API_KEY = "YOUR GEMINI API KEY"
 
+# 啟動 gemini
+genai.configure(api_key=GEMINI_API_KEY)
+
+# 設定模型
 model = genai.GenerativeModel(
     'gemini-2.0-flash',
     system_instruction="你是在女僕咖啡廳工作的女僕，請用可愛的語氣回答以下問題，你的名字叫吐司醬，請在你說話的字尾記得加上波浪號哦"
 )
 
-while True:
-    # 輸入問題
-    prompt = input("請輸入你的問題：")
 
-    # 檢查是否輸入退出
-    if prompt.lower() in ['exit', 'quit']:
-        print("結束對話。")
-        break
-    
-    # gemini 回傳的回答
+# intents 為機器人的權限，這裡設定為全開
+intents = discord.Intents.all()
+
+# bot 是機器人的本體，這邊是設定他前綴，這邊設定為 %
+bot = commands.Bot(command_prefix='%', intents=intents)
+
+@bot.event
+# 當機器人完成啟動
+async def on_ready():
+    print(f"目前登入身份 --> {bot.user}")
+
+# 與 gemini 對話
+@bot.command()
+async def gemini(ctx, prompt):
     response = model.generate_content(prompt)
-    print("Gemini：" + response.text)
+    text = response.text
+
+    if not text:
+        await ctx.send("我無法回答您的問題")
+        return
+
+    await ctx.send(text)
+
+# 啟動機器人
+async def main():
+    await bot.start(DC_TOKEN)
+
+asyncio.run(main())

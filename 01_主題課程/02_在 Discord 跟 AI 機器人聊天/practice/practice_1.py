@@ -5,17 +5,26 @@ from discord.ext import commands
 
 intents = discord.Intents.all()
 
-# TODO: 建立對應的 event 與 command
-# 要求：
-# 1. 使用 # 作為前綴詞
-# 2. 製作可以兩個小數四則運算（加減乘除）的計算機
-# 3. 向機器人輸出 #Hello 時，機器人可以自我介紹
-# 4(選擇性). 製作擁有更多功能的計算機(開根號、取餘數、次方等)
-# [Begin] 請在以下空間撰寫機器人程式
+bot = commands.Bot(command_prefix='!', intents=intents) # TODO : 把前綴詞改成 #
+
+@bot.event
+async def on_ready():
+    print(f"目前登入身份 --> {bot.user}")
+
+@bot.command
+async def Hello(ctx):
+    await ctx.send("") # TODO : 把這行填入你想要的自我介紹
+
+@bot.command
+async def add(ctx, a: float, b: float):
+    c = a + b
+    await ctx.send(a + " + " + b + " = " + c) # TODO : 把這行填入你想要的加法結果
+
+# TODO : 完成之後的減法、乘法、除法
+# 請參考上面的 command
 
 
-# [End] 請在以上空間撰寫機器人程式
 async def main():
-    await bot.start('dc_token')
+    await bot.start('dc_token') # TODO : 填入你的 discord token
 
 asyncio.run(main())

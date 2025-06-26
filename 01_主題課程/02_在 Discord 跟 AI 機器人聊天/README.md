@@ -4,11 +4,12 @@
 ## 檔案結構  
 ```sh
 02_在 Discord 跟 AI 機器人聊天
-├── /example/      範例程式碼
+├── /example/                     範例程式碼
 │  └── ...
-├── /practice/     練習用程式碼
+├── /practice/                    練習用程式碼
 │  └── ...
-├── remember.txt   拿來暫時存放 discord token 與 google api key 的地方
+├── remember.txt                  拿來暫時存放 discord token 與 google api key 的地方
+├── 主題課程二教學簡報.pdf         上課用的簡報
 └── README.md
 
 ```  
