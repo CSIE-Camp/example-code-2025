@@ -1,4 +1,4 @@
-[slide link]{https://www.canva.com/design/DAGcJuRnwCQ/x8GZ5OUiOl6MEpwst3j6lA/edit?utm_content=DAGcJuRnwCQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton}
+[slide link](https://www.canva.com/design/DAGcJuRnwCQ/x8GZ5OUiOl6MEpwst3j6lA/edit?utm_content=DAGcJuRnwCQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 # bot
 - **bot_for_photo.py**<br>
