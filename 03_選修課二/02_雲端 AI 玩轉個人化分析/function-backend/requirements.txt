@@ -1,0 +1,9 @@
+# GCP Libraries
+google-cloud-aiplatform==1.56.0
+google-cloud-language==2.13.3
+google-cloud-storage==2.16.0
+
+# Image & Data Libraries
+Pillow==9.5.0
+wordcloud==1.9.3
+matplotlib==3.9.0
