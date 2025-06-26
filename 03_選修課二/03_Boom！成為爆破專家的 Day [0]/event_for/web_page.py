@@ -5,7 +5,7 @@ import random
 app = Flask(__name__)
 app.secret_key = 'secret'
 
-TARGET_PASSWORD = str(random.randint(10000, 13000))
+TARGET_PASSWORD = str(random.randint(13000, 15000))
 print(f"🎯 目標密碼: {TARGET_PASSWORD}")
 
 LOGIN_PAGE = '''
@@ -52,7 +52,7 @@ SUCCESS_PAGE = '''
 <body>
     <div class="hacker-text">You are a hacker</div>
     <div class="hacker-img">
-        <img src="https://via.placeholder.com/400x300/000000/00ff00?text=HACKER" alt="Hacker Image">
+        <img src="/static/邪惡歐姆巴.jpg" alt="Hacker Image" width="300">
     </div>
     <p>密碼: {{ password }}</p>
     <a href="/" style="color: #0f0;">重新開始</a>

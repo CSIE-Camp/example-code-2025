@@ -1,6 +1,9 @@
 import requests
 import time
-
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from path import passwd_path
 # 目標伺服器登入頁面
 url = "http://127.0.0.1:5000/login"
 
@@ -8,7 +11,7 @@ url = "http://127.0.0.1:5000/login"
 username = "admin"
 
 # 載入整份密碼字典
-with open(r"C:\Users\hank\OneDrive\桌面\大學\2025資工營\example-code-2025-main\03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web\xato-net-10-million-passwords-10000.txt", "r", encoding="utf-8", errors="ignore") as f:
+with open(passwd_path, "r", encoding="utf-8", errors="ignore") as f:
     passwords = [line.strip() for line in f if line.strip()]
 
 print(f"🔍 正在測試 {len(passwords):,} 筆密碼...")

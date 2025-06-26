@@ -1,4 +1,8 @@
 from flask import Flask, request, render_template_string
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from path import passwd_path
 import random
 
 app = Flask(__name__)
@@ -8,7 +12,7 @@ app.secret_key = 'your-secret-key-here'
 TARGET_USERNAME = "admin"
 
 # 從字典第5000～9999筆中隨機選密碼
-with open(r"C:\Users\hank\OneDrive\桌面\大學\2025資工營\example-code-2025-main\03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web\xato-net-10-million-passwords-10000.txt", encoding="utf-8", errors="ignore") as f:
+with open(passwd_path, encoding="utf-8", errors="ignore") as f:
     passwords = [line.strip() for i, line in enumerate(f) if 5000 <= i < 10000 and line.strip()]
 
 TARGET_PASSWORD = random.choice(passwords)
@@ -64,7 +68,7 @@ SUCCESS_PAGE = '''
 <body>
     <div class="hacker-text">You are a hacker</div>
     <div class="hacker-img">
-        <img src="https://via.placeholder.com/400x300/000000/00ff00?text=HACKER" alt="Hacker Image">
+        <img src="/static/邪惡歐姆巴.jpg" alt="Hacker Image" width="300">
     </div>
     <p>帳號: {{ username }}</p>
     <p>密碼: {{ password }}</p>

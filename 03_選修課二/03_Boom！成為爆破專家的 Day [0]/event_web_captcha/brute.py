@@ -2,17 +2,20 @@ import requests
 import ddddocr
 import time
 import random
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from path import captha_get_path,  passwd_path
 
 ocr = ddddocr.DdddOcr()
 session = requests.Session()
 
 URL = "http://127.0.0.1:5000/login"
 CAPTCHA_URL = "http://127.0.0.1:5000/captcha"
-CAPTCHA_PATH = r"C:\Users\hank\OneDrive\桌面\大學\2025資工營\example-code-2025-main\03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web_captcha\captcha_get.png"
+CAPTCHA_PATH = captha_get_path
 
 # 載入字典檔（自行準備或替換為 rockyou.txt）
-with open(r"03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web_captcha\xato-net-10-million-passwords-10000.txt", "r", encoding="utf-8", errors="ignore") as f:
+with open(passwd_path, "r", encoding="utf-8", errors="ignore") as f:
     passwords = [line.strip() for line in f if line.strip()]
 
 def get_captcha():

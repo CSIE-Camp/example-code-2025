@@ -1,12 +1,16 @@
 from flask import Flask, request, render_template_string, send_file, session
 from captcha import generate_captcha_image
 import random
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from path import passwd_path
 
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
 
 # 隨機密碼（從字典第 5000～10000 筆抽取）
-with open(r"03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web_captcha\xato-net-10-million-passwords-10000.txt", encoding="utf-8") as f:
+with open(passwd_path, encoding="utf-8") as f:
     lines = f.readlines()[300:500]
 PASSWORD = random.choice(lines).strip()
 USERNAME = "admin"
@@ -116,8 +120,12 @@ SUCCESS_HTML = '''
 </head>
 <body>
     <div class="hacker-text">You are a hacker</div>
-    <p>密碼為：{{ password }}</p>
-    <p><a href="/">返回登入頁</a></p>
+    <div class="hacker-img">
+        <img src="/static/邪惡歐姆巴.jpg" alt="Hacker Image" width="300">
+    </div>
+    <p>帳號: {{ username }}</p>
+    <p>密碼: {{ password }}</p>
+    <a href="/" style="color: #0f0;">重新開始</a>
 </body>
 </html>
 '''
@@ -142,7 +150,7 @@ def login():
     if cap != cap_session:
         return render_template_string(LOGIN_HTML, error="驗證碼錯誤，請再試一次")
     if user == USERNAME and pw == PASSWORD:
-        return render_template_string(SUCCESS_HTML, password=PASSWORD)
+        return render_template_string(SUCCESS_HTML, password=PASSWORD, username=USERNAME)
     return render_template_string(LOGIN_HTML, error="帳號或密碼錯誤，已重設驗證碼")
 
 if __name__ == '__main__':

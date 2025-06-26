@@ -2,9 +2,12 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import string
 import os
-
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from path import captha_save_dir
 # 改這裡：設定絕對儲存路徑
-SAVE_DIR = r"C:\Users\hank\OneDrive\桌面\大學\2025資工營\example-code-2025-main\03_選修課二\03_Boom！成為爆破專家的 Day [0]\event_web_captcha"
+SAVE_DIR = captha_save_dir
 SAVE_FILENAME = os.path.join(SAVE_DIR, "captcha_mild.png")
 
 def generate_captcha_image(filename=SAVE_FILENAME, text=None, width=160, height=60, font_size=36):
