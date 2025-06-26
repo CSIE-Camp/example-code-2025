@@ -1,0 +1,11 @@
+discord.py
+google-generativeai
+Flask
+requests
+gunicorn 
+google-cloud
+Pillow
+wordcloud
+matplotlib 
+sympy
+ddddocr
