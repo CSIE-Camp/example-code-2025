@@ -11,14 +11,14 @@ bot = commands.Bot(command_prefix='!', intents=intents) # TODO : 把前綴詞改
 async def on_ready():
     print(f"目前登入身份 --> {bot.user}")
 
-@bot.command
+@bot.command()
 async def Hello(ctx):
     await ctx.send("") # TODO : 把這行填入你想要的自我介紹
 
-@bot.command
+@bot.command()
 async def add(ctx, a: float, b: float):
     c = a + b
-    await ctx.send(a + " + " + b + " = " + c) # TODO : 把這行填入你想要的加法結果
+    await ctx.send(str(a) + " + " + str(b) + " = " + str(c)) # TODO : 把這行填入你想要的加法結果
 
 # TODO : 完成之後的減法、乘法、除法
 # 請參考上面的 command

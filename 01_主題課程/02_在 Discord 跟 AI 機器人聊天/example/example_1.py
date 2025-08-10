@@ -9,7 +9,7 @@ dc_token = "YOUR DCBOT TOKEN" # 請填入你的 Discord Bot Token
 intents = discord.Intents.all()
 
 # bot 是機器人的本體，這邊是設定他前綴，這邊設定為 %
-bot = commands.Bot(command_prefix='%', intents=intents, enable_cache=True)
+bot = commands.Bot(command_prefix='114514', intents=intents, enable_cache=True)
 
 @bot.event
 # 當機器人完成啟動
