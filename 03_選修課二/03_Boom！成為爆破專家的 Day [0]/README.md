@@ -1,5 +1,7 @@
 # WIFI爆破步驟
 
+## 虛擬機下載位置：https://drive.google.com/file/d/1QVfqqFYD0UshPDLOWhap2U1BUiZVod5N/view?usp=drive_link
+
 ## 1. 啟用網卡
 ```
 ip a
